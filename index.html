@@ -1,49 +1,63 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VeniWotwot's Github HomePage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
 <body>
 
-<h1>Welcome to veniwotwot's github page.</h1>
-<br>
-<p>I'm so glad that you are here, checking out my progress and (hopefully) enjoying your time here! 
-  The buttons below will bring you to where you want to go (probably)!</p>
-<br>
+  <section class="header">
+    <h1>Welcome to veniwotwot's github page!</h1>
+    <p>I'm so glad that you are here, checking out my progress and (hopefully) enjoying your time here!
+      The buttons below will bring you to where you want to go (probably)!</p>
+    <br>
+  </section>
 
-<div class = "game-grid" style = "display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem 1rem">
+  <section class="boxes">
+    <div class="box">
+      <img src="img/mono_pillar.png">
+      <h2>MonoSnake</h2>
+      <form action="https://veniwotwot.github.io/monosnake">
+        <input class="btn" type="submit" value="Go to Monosnake" />
+      </form>
+    </div>
 
-<div class = "game">
-<a href = "#" class = "thumbnail" style = "display: flex; flex-direction: column;">
-  <img class = "thumbnail-image" src = "mono_pillar.png">
-</a>
+    <div class="box">
+      <img src="img/duo_pillar.png">
+      <h2>DuoSnake</h2>
+      <form action="https://veniwotwot.github.io/duosnake">
+        <input class="btn" type="submit" value="Go to Duosnake" />
+      </form>
+    </div>
 
-<div class = "game-bottom-section">
-<form action="https://veniwotwot.github.io/monosnake">
-    <input style = "background-color:blue; color: white;" type="submit" value="Go to Monosnake" />
-</form>
-</div>
-</div>
-<br>
+    <div class="box">
+      <img src="img/showcase.jpg">
+      <h2>Responsive Site</h2>
+      <form action="https://veniwotwot.github.io/responsivesite">
+        <input class="btn" type="submit" value="Go to Responsive Site" />
+      </form>
+    </div>
+  </section>
 
-<div class = "game">
-  <a href = "#" class = "thumbnail"  style = "display: flex; flex-direction: column;">
-    <img class = "thumbnail-image" src = "duo_pillar.png">
-  </a>
-  
-  <div class = "game-bottom-section">
-  <form action="https://veniwotwot.github.io/duosnake">
-      <input style = "background-color:blue; color: white;" type="submit" value="Go to Duosnake" />
-  </form>
-  </div></div>
-</div>
+  <section class=bottom-notes>
+    <br>
+    <p>Beware, monosnake and duosnake do not currently handle window sizing very well.
+      You may have to manually resize your browser in order to view the full screen.</p>
+    <p>More games and projects worth viewing are coming soon!
+      Maybe around the time they come out, I'll invest the time to create a prettier looking page.</p>
+    <p>Do note, this home page is only mildly responsive ahaha</p>
+    <br>
+  </section>
 
-
-
-<br>
-<p>Beware, monosnake and duosnake do not currently handle window sizing very well.
-   You may have to manually resize your browser in order to view the full screen.</p>
-
-
-<p>More games and projects worth viewing are coming soon! 
-  Maybe around the time they come out, I'll invest the time to create a prettier looking page.</p>
+  <section class=footer>
+    <p>&copy; 2023 VeniWotwot Publishing</p>
+  </section>
 
 </body>
+
 </html>
