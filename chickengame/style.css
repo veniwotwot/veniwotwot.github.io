@@ -1,0 +1,54 @@
+#canvas1{
+  border: 3px solid black;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 600px;
+  width: 900px;
+  background-color: white;
+}
+
+:root{
+  background-color: black;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+}
+
+#heartcount{
+  font-size: 72;
+  margin-top: 50px;
+}
+
+#score{
+  font-size: 72;
+}
+
+h1{
+  color: red;
+  font-size: 150;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.top-box{
+  max-width: 200px;
+  margin:auto;
+}
+
+.config{
+  text-align: right;
+}
+
+.instructions{
+  max-width: 500px;
+  margin: auto;
+}
+
+.btn{
+  background-color: rgba(61, 59, 59, 0.977);
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+  border-color: white;
+}

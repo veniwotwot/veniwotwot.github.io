@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whack-A-Chicken!</title>
+  <link rel = "stylesheet" href = "style.css"> 
+</head>
+<body>
+  <h1>WELCOME TO WHACK-A-CHICKEN!</h1>
+  <section class="top-box">
+    <h3 id = heartcount>Heart Count: ___</h3>
+    <h3 id = score>Score: 0</h3>
+  </section>
+
+<section class = "game-configs">
+  <form id = cxnfig>
+    <p>
+      <label for="spawn">Spawn Count</label>
+      <input id="spawn" type="text" value = 1>
+   
+      <label for="time">Speed</label>
+      <input id="time" type="text" value = 60>
+   
+      <label for="heart">Hearts</label>
+      <input id="heart" type="text" value = 3>
+
+      <button class = "btn" type = "button" onclick="start()">Start Game</button>
+    </p>
+  </form>
+</section>
+
+  <section class = "instructions">
+    <p >Slaughter those chickens! Click them when they pop up!</p>
+  </section>
+
+  <canvas id = "canvas1"></canvas>
+  <script src = "script.js"></script>
+</body>
+</html>
