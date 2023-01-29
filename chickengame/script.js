@@ -156,7 +156,8 @@ function start() {
 }
 
 function gameOver() {
-  //soundtrack.pause();
+  soundtrack.pause();
+  ingame = false;
 
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
