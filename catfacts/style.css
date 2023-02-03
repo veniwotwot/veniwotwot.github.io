@@ -1,0 +1,42 @@
+:root{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 0.5em;
+}
+
+h1{
+  margin: auto;
+  font-size: xx-large;
+  background-color: white;
+  overflow: hidden;
+  border-radius: 0.5em;
+  max-width: 500px;
+}
+
+#display-fact{
+  font-size: larger;
+  max-width: 400px;
+  margin: auto;
+  margin-top: 400px;
+  margin-bottom: 50px;
+  background-color: white;
+  overflow: hidden;
+  border-radius: 0.5em;
+}
+
+.refresh-btn{
+  border-radius: 0.5em;
+  background-color: aqua;
+  color: black;
+  border-radius: 1em;
+  box-shadow: inset;
+}
+
+html{ 
+  background: url(assets/cat1.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
