@@ -33,6 +33,11 @@ h1{
   box-shadow: inset;
 }
 
+.refresh-btn:hover{
+  background-color: black;
+  color: aqua;
+}
+
 html{ 
   background: url(assets/cat1.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
