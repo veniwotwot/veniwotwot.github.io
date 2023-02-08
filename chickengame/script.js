@@ -20,6 +20,8 @@ let chicken = new Image();
 chicken.src = 'assets/chicken.jpg';
 let warning = new Image();
 warning.src = 'assets/danger.png';
+let bomb = new Image()
+bomb.src = 'assets/bomb.jpg';
 
 class GridSquare {
   constructor(a, b) {
@@ -31,25 +33,36 @@ class GridSquare {
     this.warningFrame = -1;
     this.active = false;
     this.activationFrame = -1;
+    this.bomb = false;
   }
   draw() {
     if (this.active) {
-      //ctx.fillStyle = "red";
-      //ctx.fillRect(this.x, this.y, this.width, this.height);
-      ctx.drawImage(chicken, this.x, this.y, this.width, this.height);
+      if(this.bomb){
+        //ctx.fillStyle = "red";
+        //ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(bomb, this.x, this.y, this.width, this.height);
+      }
+      else{
+        ctx.drawImage(chicken, this.x, this.y, this.width, this.height);
+      }
     }
     else if (this.warning) {
-      //ctx.fillStyle = "orange";
-      //ctx.fillRect(this.x, this.y, this.width, this.height);
       ctx.drawImage(warning, this.x, this.y, this.width, this.height);
     }
     ctx.strokeRect(this.x, this.y, this.width, this.height);
   }
   loudsquawk() {
-    let num = Math.ceil(Math.random() * 6);
-    var squawk = new Audio(`assets/squawk${num}.wav`);
-    console.log("SQUAWK");
-    squawk.play();
+    if(this.bomb){
+      var sizzle = new Audio('assets/sizzle.wav');
+      console.log("SIZZLE");
+      sizzle.play();
+    }
+    else{
+      let num = Math.ceil(Math.random() * 6);
+      var squawk = new Audio(`assets/squawk${num}.wav`);
+      console.log("SQUAWK");
+      squawk.play();
+    }
   }
 }
 
@@ -72,11 +85,24 @@ function randomize(size, times) {
 function activate() {
   grid.forEach((square) => {
     if (square.warning) {
+      let chickenBomb = Math.floor(Math.random() * 10);
+      //let chickenBomb = 2;
       if (frame - square.warningFrame >= timeLimit) {
-        square.warning = false;
-        square.active = true;
-        square.activationFrame = frame;
-        square.loudsquawk();
+        if(chickenBomb == 2){    // one in ten chance to be bomb
+          square.warning = false;
+          square.active = true;
+          square.bomb = true;
+          square.activationFrame = frame;
+          square.loudsquawk();
+          //console.log("bomb has spawned");
+        }
+        else {
+          square.warning = false;
+          square.active = true;
+          square.activationFrame = frame;
+          square.loudsquawk();
+          //console.log("chicken has spawned: "+chickenBomb);
+        }
       }
     }
   })
@@ -86,11 +112,36 @@ function deactivate() {
   grid.forEach((square) => {
     if (square.active) {
       if (frame - square.activationFrame >= timeLimit) {
-        square.active = false;
-        hearts--;
+        if(square.bomb){
+          square.bomb = false;
+          square.active = false;
+        }
+        else{
+          square.active = false;
+          hearts--;
+        }
       }
     }
   })
+}
+
+async function detonate(x,y){
+  explode(x,y);
+  hearts = 0;
+  setTimeout(() => {
+    console.log("BOMB HAS EXPLODED");
+    bakabuzzer();
+    //console.log(particles);
+  }, 1000); 
+}
+
+function bakabuzzer() {
+  let num = Math.ceil(Math.random() * 2);
+  var bakabaka = new Audio(`assets/bakabuzzer${num}.wav`);
+  bakabaka.play();
+  setTimeout(function () {
+      bakabaka.pause();
+  }, 3000);
 }
 
 function determineLocation(x, y) {
@@ -118,9 +169,15 @@ function swingHammer(x, y) {
 
   if (squareHit > -1) {
     if (grid[squareHit].active) {
-      grid[squareHit].active = false;
-      score++;
-      document.getElementById('score').innerHTML = `Score: ${score}`;
+      if(!grid[squareHit].bomb){
+        grid[squareHit].active = false;
+        score++;
+        document.getElementById('score').innerHTML = `Score: ${score}`;
+      }
+      else{
+        grid[squareHit].active = false;
+        detonate(x,y);
+      }
     }
   }
 }
@@ -158,6 +215,7 @@ function start() {
 function gameOver() {
   soundtrack.pause();
   ingame = false;
+  particles = [];
 
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -195,5 +253,73 @@ function animate() {
   }
 }
 
-//TODO: RUBBER DUCKY (SQUEAKY DOG TOY) SOUNDTRACK
 
+//Explosion Drawing Logic from @see https://www.geeksforgeeks.org/explosion-animation-in-canvas/
+let particles = [];
+
+/* Initialize particle object  */
+class Particle {
+  constructor(x, y, radius, dx, dy) {
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
+      this.dx = dx;
+      this.dy = dy;
+      this.alpha = 1;
+  }
+  draw() {
+      ctx.save();
+      ctx.globalAlpha = this.alpha;
+      ctx.fillStyle = 'red';
+        
+      /* Begins or reset the path for 
+         the arc created */
+      ctx.beginPath();
+        
+      /* Some curve is created*/
+      ctx.arc(this.x, this.y, this.radius, 
+              0, Math.PI * 2, false);
+
+      ctx.fill();
+        
+      /* Restore the recent canvas context*/
+      ctx.restore();
+  }
+  update() {
+      this.draw();
+      this.alpha -= 0.01;
+      this.x += this.dx;
+      this.y += this.dy;
+  }
+}
+
+/* Timer is set for particle push 
+  execution in intervals*/
+  function populateParticles(x,y){
+    setTimeout(() => {
+      for (i = 0; i <= 150; i++) {
+          let dx = (Math.random() - 0.5) * (Math.random() * 6);
+          let dy = (Math.random() - 0.5) * (Math.random() * 6);
+          let radius = Math.random() * 3;
+          let particle = new Particle(x,y, radius, dx, dy);
+            
+          /* Adds new items like particle*/
+          particles.push(particle);
+      }
+      //explode();
+    }, 100);  //3000
+  }
+
+
+/* Particle explosion function */
+function explode(x,y) {
+  populateParticles(x,y)
+  particles.forEach((particle, i) => {
+          if (particle.alpha <= 0) {
+              particles.splice(i, 1);
+          } else particle.update()
+      })
+        
+      /* Performs a animation after request*/
+  requestAnimationFrame(explode);
+}
